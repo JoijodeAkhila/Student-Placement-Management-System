@@ -4,12 +4,14 @@ public class Student {
     private String id;
     private String name;
     private double cgpa;
+    private String skill;
     private boolean isPlaced;
 
-    public Student(String id, String name, double cgpa) {
+    public Student(String id, String name, double cgpa, String skill) {
         this.id = id;
         this.name = name;
         this.cgpa = cgpa;
+        this.skill = skill;
         this.isPlaced = false;
     }
 
@@ -25,6 +27,10 @@ public class Student {
         return cgpa;
     }
 
+    public String getSkill() {
+        return skill;
+    }
+
     public boolean isPlaced() {
         return isPlaced;
     }
@@ -38,6 +44,7 @@ public class Student {
         return "ID: " + id +
                 ", Name: " + name +
                 ", CGPA: " + cgpa +
+                ", Skill: " + skill +
                 ", Placed: " + (isPlaced ? "Yes" : "No");
     }
 }
