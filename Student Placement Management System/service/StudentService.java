@@ -6,15 +6,23 @@ import java.util.ArrayList;
 public class StudentService {
     private ArrayList<Student> studentList = new ArrayList<>();
 
-    public void registerStudent(String id, String name, double cgpa) {
-        Student student = new Student(id, name, cgpa);
-        studentList.add(student);
-        System.out.println("Student registered: " + name);
+    public void registerStudent(String id, String name, double cgpa, String skill) {
+
+        // Unique ID validation
+        for (Student s : studentList) {
+            if (s.getId().equalsIgnoreCase(id)) {
+                System.out.println("Student ID already exists.");
+                return;
+            }
+        }
+
+        studentList.add(new Student(id, name, cgpa, skill));
+        System.out.println("Student registered.");
     }
 
     public void viewAllStudents() {
         if (studentList.isEmpty()) {
-            System.out.println("No students registered.");
+            System.out.println("No students.");
             return;
         }
 
