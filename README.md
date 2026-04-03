@@ -33,7 +33,7 @@ The Student Placement Management System is a Java console-based application that
 
 📂 Project Structure
 
-Student Placement Management System
+'''Student Placement Management System
  └── src
      ├── model
      │    ├── Application.java
@@ -44,7 +44,7 @@ Student Placement Management System
      │    ├── CompanyService.java
      │    └── PlacementService.java
      └── app
-          └── Main.java
+          └── Main.java '''
 
 ---
 
