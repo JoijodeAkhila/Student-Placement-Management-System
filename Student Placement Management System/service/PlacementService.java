@@ -9,54 +9,67 @@ import java.util.ArrayList;
 public class PlacementService {
     private ArrayList<Application> applicationList = new ArrayList<>();
 
-    // Student applies to company
     public void apply(Student student, Company company) {
         if (student.isPlaced()) {
-            System.out.println("⚠️ Student already placed. Cannot apply.");
+            System.out.println("Already placed.");
             return;
         }
 
         if (student.getCgpa() < company.getMinCgpa()) {
-            System.out.println("❌ Student not eligible for this company.");
+            System.out.println("Not eligible.");
             return;
         }
 
-        Application app = new Application(student.getId(), company.getName());
-        applicationList.add(app);
-        System.out.println("✅ Application submitted for " + student.getName() + " to " + company.getName());
-    }
-
-    // View all applications
-    public void viewApplications() {
-        if (applicationList.isEmpty()) {
-            System.out.println("📭 No applications submitted yet.");
-            return;
-        }
-
-        System.out.println("\n📄 Applications:");
-        for (Application app : applicationList) {
-            System.out.println(app.toString());
-        }
-    }
-
-    // Mark a student as selected
-    public void selectStudent(String studentId) {
-        for (Application app : applicationList) {
-            if (app.getStudentId().equalsIgnoreCase(studentId)) {
-                app.setStatus("Selected");
+        // Prevent duplicate
+        for (Application a : applicationList) {
+            if (a.getStudentId().equalsIgnoreCase(student.getId()) &&
+                a.getCompanyName().equalsIgnoreCase(company.getName())) {
+                System.out.println("Already applied.");
+                return;
             }
         }
-        System.out.println("✅ Student " + studentId + " marked as Selected.");
+
+        applicationList.add(new Application(student.getId(), company.getName()));
+        System.out.println("Application submitted.");
     }
 
-    // Mark student as placed (update Student object directly)
+    public void viewApplications() {
+        if (applicationList.isEmpty()) {
+            System.out.println("No applications.");
+            return;
+        }
+
+        for (Application a : applicationList) {
+            System.out.println(a);
+        }
+    }
+
+    public void selectStudent(String studentId, String companyName) {
+        boolean found = false;
+
+        for (Application a : applicationList) {
+            if (a.getStudentId().equalsIgnoreCase(studentId) &&
+                a.getCompanyName().equalsIgnoreCase(companyName)) {
+
+                a.setStatus("Selected");
+                found = true;
+            }
+        }
+
+        if (found) {
+            System.out.println("Student selected.");
+        } else {
+            System.out.println("Application not found.");
+        }
+    }
+
     public void placeStudent(Student student) {
-        student.setPlaced(true);
-        System.out.println("🎉 " + student.getName() + " is now placed!");
-    }
+        if (student.isPlaced()) {
+            System.out.println("Already placed.");
+            return;
+        }
 
-    // Get all applications
-    public ArrayList<Application> getAllApplications() {
-        return applicationList;
+        student.setPlaced(true);
+        System.out.println("Student placed successfully.");
     }
 }
