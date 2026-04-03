@@ -3,7 +3,7 @@ package model;
 public class Application {
     private String studentId;
     private String companyName;
-    private String status;
+    private String status; // Applied, Selected
 
     public Application(String studentId, String companyName) {
         this.studentId = studentId;
@@ -11,17 +11,9 @@ public class Application {
         this.status = "Applied";
     }
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
+    public String getStudentId() { return studentId; }
+    public String getCompanyName() { return companyName; }
+    public String getStatus() { return status; }
 
     public void setStatus(String status) {
         this.status = status;
@@ -30,7 +22,7 @@ public class Application {
     @Override
     public String toString() {
         return "Student ID: " + studentId +
-                ", Company: " + companyName +
-                ", Status: " + status;
+               ", Company: " + companyName +
+               ", Status: " + status;
     }
 }
