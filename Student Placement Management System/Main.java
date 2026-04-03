@@ -1,85 +1,97 @@
+package app;
+
 import model.*;
 import service.*;
-
 
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         StudentService studentService = new StudentService();
         CompanyService companyService = new CompanyService();
         PlacementService placementService = new PlacementService();
 
         while (true) {
-            System.out.println("\n🎓 STUDENT PLACEMENT MANAGEMENT SYSTEM 🎓");
-            System.out.println("1. Register Student");
-            System.out.println("2. Register Company");
-            System.out.println("3. View Eligible Companies for a Student");
-            System.out.println("4. Apply for Company");
-            System.out.println("5. View Applications");
-            System.out.println("6. Select Student");
-            System.out.println("7. Mark Student as Placed");
-            System.out.println("8. View All Students");
-            System.out.println("9. View All Companies");
-            System.out.println("0. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("\n1.Register Student");
+            System.out.println("2.Register Company");
+            System.out.println("3.View Eligible Companies");
+            System.out.println("4.Apply");
+            System.out.println("5.View Applications");
+            System.out.println("6.Select Student");
+            System.out.println("7.Mark Placed");
+            System.out.println("8.View Students");
+            System.out.println("9.View Companies");
+            System.out.println("0.Exit");
 
             int choice = sc.nextInt();
-            sc.nextLine(); // clear buffer
+            sc.nextLine();
 
             switch (choice) {
+
                 case 1:
-                    System.out.print("Enter Student ID: ");
+                    System.out.print("ID: ");
                     String id = sc.nextLine();
-                    System.out.print("Enter Student Name: ");
+
+                    System.out.print("Name: ");
                     String name = sc.nextLine();
-                    System.out.print("Enter CGPA: ");
+
+                    System.out.print("CGPA: ");
                     double cgpa = sc.nextDouble();
+                    sc.nextLine();
+
                     studentService.registerStudent(id, name, cgpa);
                     break;
 
                 case 2:
-                    System.out.print("Enter Company Name: ");
-                    String companyName = sc.nextLine();
-                    System.out.print("Enter Minimum CGPA Required: ");
-                    double minCgpa = sc.nextDouble();
-                    companyService.registerCompany(companyName, minCgpa);
+                    System.out.print("Company: ");
+                    String cname = sc.nextLine();
+
+                    System.out.print("Min CGPA: ");
+                    double min = sc.nextDouble();
+                    sc.nextLine();
+
+                    companyService.registerCompany(cname, min);
                     break;
 
                 case 3:
-                    System.out.print("Enter Student ID: ");
+                    System.out.print("Student ID: ");
                     String sid = sc.nextLine();
+
                     Student s = studentService.getStudentById(sid);
                     if (s == null) {
-                        System.out.println("❌ Student not found.");
-                    } else {
-                        System.out.println("✅ Eligible Companies:");
-                        for (Company c : companyService.getAllCompanies()) {
-                            if (s.getCgpa() >= c.getMinCgpa() && !s.isPlaced()) {
-                                System.out.println(c);
-                            }
+                        System.out.println("Student not found");
+                        break;
+                    }
+
+                    for (Company c : companyService.getAllCompanies()) {
+                        if (s.getCgpa() >= c.getMinCgpa() && !s.isPlaced()) {
+                            System.out.println(c);
                         }
                     }
                     break;
 
                 case 4:
-                    System.out.print("Enter Student ID: ");
-                    String applySid = sc.nextLine();
-                    Student stu = studentService.getStudentById(applySid);
-                    if (stu == null) {
-                        System.out.println("❌ Student not found.");
+                    System.out.print("Student ID: ");
+                    String stid = sc.nextLine();
+
+                    Student st = studentService.getStudentById(stid);
+                    if (st == null) {
+                        System.out.println("Student not found");
                         break;
                     }
-                    System.out.print("Enter Company Name: ");
+
+                    System.out.print("Company: ");
                     String comp = sc.nextLine();
-                    Company com = companyService.getCompanyByName(comp);
-                    if (com == null) {
-                        System.out.println("❌ Company not found.");
+
+                    Company co = companyService.getCompanyByName(comp);
+                    if (co == null) {
+                        System.out.println("Company not found");
                         break;
                     }
-                    placementService.apply(stu, com);
+
+                    placementService.apply(st, co);
                     break;
 
                 case 5:
@@ -87,19 +99,24 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.print("Enter Student ID to mark as Selected: ");
-                    String selectId = sc.nextLine();
-                    placementService.selectStudent(selectId);
+                    System.out.print("Student ID: ");
+                    String selId = sc.nextLine();
+
+                    System.out.print("Company: ");
+                    String selComp = sc.nextLine();
+
+                    placementService.selectStudent(selId, selComp);
                     break;
 
                 case 7:
-                    System.out.print("Enter Student ID to mark as Placed: ");
+                    System.out.print("Student ID: ");
                     String pid = sc.nextLine();
-                    Student placedStudent = studentService.getStudentById(pid);
-                    if (placedStudent != null) {
-                        placementService.placeStudent(placedStudent);
+
+                    Student ps = studentService.getStudentById(pid);
+                    if (ps != null) {
+                        placementService.placeStudent(ps);
                     } else {
-                        System.out.println("❌ Student not found.");
+                        System.out.println("Student not found");
                     }
                     break;
 
@@ -112,17 +129,9 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("🌼 Thank you for using the system. Goodbye!");
                     sc.close();
                     return;
-
-                default:
-                    System.out.println("⚠️ Invalid choice. Try again.");
             }
-            
-        
         }
-        
     }
-    
 }
