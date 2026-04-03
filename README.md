@@ -2,23 +2,20 @@
 
 ## 📌 Project Overview
 
-The **Student Placement Management System** is a Java console-based application that automates the campus recruitment process. It manages student and company data, and performs candidate shortlisting based on **CGPA and skill requirements**.
+The **Student Placement Management System** is a Java console-based application designed to automate the campus recruitment process. It manages student and company data and performs intelligent candidate shortlisting based on **CGPA and multiple skill matching**.
 
 ---
 
 ## 🚀 Features
 
-* Register students with ID, name, CGPA, and skill
-* Register companies with minimum CGPA and required skill
-* Apply for companies based on eligibility
-* Automatic filtering using:
-
-  * CGPA criteria
-  * Skill matching
+* Register students with ID, name, CGPA, and multiple skills
+* Register companies with minimum CGPA and required skill set
+* Display eligible students for each company
+* Apply for companies based on eligibility criteria
 * Prevent duplicate applications
-* Ensure unique student ID registration
-* View all applications
-* Mark students as selected and placed
+* Enforce **maximum 3 job offers per student**
+* Automatically update placement status based on offer count
+* View all applications and student details
 
 ---
 
@@ -27,7 +24,7 @@ The **Student Placement Management System** is a Java console-based application 
 * Java (Core Java)
 * Eclipse IDE
 * Object-Oriented Programming (OOP)
-* Java Collections (ArrayList)
+* Java Collections (ArrayList, List)
 
 ---
 
@@ -69,32 +66,41 @@ Student Placement Management System
 ```
 1.Register Student
 2.Register Company
-3.Apply
-4.View Applications
-5.Exit
+3.Show Eligible Students
+4.Apply
+5.Select Student
+6.View Applications
+7.View Students
+8.Exit
 ```
 
 ---
 
-## 🔍 Example Workflow
+## 🔍 System Workflow
 
-1. Register a student with CGPA and skill
-2. Register a company with required CGPA and skill
-3. Student applies → system checks:
+1. Register student with CGPA and multiple skills
+2. Register company with required CGPA and skills
+3. System filters eligible students based on:
 
-   * CGPA eligibility
-   * Skill match
-4. Application is accepted or rejected accordingly
+   * CGPA requirement
+   * Skill matching (all required skills must match)
+4. Student applies for company
+5. On selection:
+
+   * Offer count increases
+   * Placement status updates
+6. Student can receive up to **3 offers only**
 
 ---
 
 ## ❗ Validations Implemented
 
-* Prevents duplicate applications for same company
-* Ensures unique student IDs
-* Checks CGPA eligibility before applying
-* Verifies skill matching between student and company
-* Prevents applying after placement
+* Unique student ID enforcement
+* Duplicate application prevention
+* CGPA eligibility validation
+* Skill matching verification
+* Maximum 3 offers per student restriction
+* Prevent further applications after reaching offer limit
 
 ---
 
@@ -103,8 +109,8 @@ Student Placement Management System
 * Database integration using MySQL (JDBC)
 * GUI using JavaFX or Swing
 * Login system (Admin / Student)
-* Multiple skills support (List of skills)
 * Advanced filtering and ranking system
+* Company categorization (Dream / Non-Dream)
 
 ---
 
@@ -112,11 +118,11 @@ Student Placement Management System
 
 Student Placement Management System | Java
 • Developed a recruitment automation system using Java Collections to manage student and company data.
-• Implemented filtering logic to automate candidate shortlisting based on CGPA and skill requirements.
-• Applied OOP principles to ensure modular design and enforced unique ID validation for data integrity.
+• Implemented candidate shortlisting based on CGPA and multiple skill matching using efficient filtering logic.
+• Enforced placement constraints by limiting students to a maximum of 3 job offers and ensuring data integrity through OOP-based design.
 
 ---
 
 ## 📄 Note
 
-This project is developed for academic and learning purposes and demonstrates core Java and problem-solving concepts.
+This project is developed for academic purposes and demonstrates strong fundamentals in Java, OOP, and problem-solving with real-world placement logic.
