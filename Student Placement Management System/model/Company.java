@@ -9,7 +9,6 @@ public class Company {
         this.minCgpa = minCgpa;
     }
 
-    // Getters
     public String getName() {
         return name;
     }
