@@ -1,14 +1,18 @@
 package service;
 
 import model.Student;
-import java.util.ArrayList;
+import java.util.*;
 
 public class StudentService {
-    private ArrayList<Student> studentList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
 
-    public void registerStudent(String id, String name, double cgpa, String skill) {
+    public void registerStudent(String id, String name, double cgpa, List<String> skills) {
 
-        // Unique ID validation
+        if (cgpa < 0 || cgpa > 10) {
+            System.out.println("Invalid CGPA.");
+            return;
+        }
+
         for (Student s : studentList) {
             if (s.getId().equalsIgnoreCase(id)) {
                 System.out.println("Student ID already exists.");
@@ -16,31 +20,24 @@ public class StudentService {
             }
         }
 
-        studentList.add(new Student(id, name, cgpa, skill));
+        studentList.add(new Student(id, name, cgpa, skills));
         System.out.println("Student registered.");
-    }
-
-    public void viewAllStudents() {
-        if (studentList.isEmpty()) {
-            System.out.println("No students.");
-            return;
-        }
-
-        for (Student s : studentList) {
-            System.out.println(s);
-        }
     }
 
     public Student getStudentById(String id) {
         for (Student s : studentList) {
-            if (s.getId().equalsIgnoreCase(id)) {
-                return s;
-            }
+            if (s.getId().equalsIgnoreCase(id)) return s;
         }
         return null;
     }
 
-    public ArrayList<Student> getAllStudents() {
+    public List<Student> getAllStudents() {
         return studentList;
+    }
+
+    public void viewAllStudents() {
+        for (Student s : studentList) {
+            System.out.println(s);
+        }
     }
 }
