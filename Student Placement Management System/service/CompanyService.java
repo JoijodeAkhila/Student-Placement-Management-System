@@ -1,37 +1,43 @@
 package service;
 
-import model.Company;
-import java.util.ArrayList;
+import model.*;
+import java.util.*;
 
 public class CompanyService {
-    private ArrayList<Company> companyList = new ArrayList<>();
+    private List<Company> companyList = new ArrayList<>();
 
-    public void registerCompany(String name, double minCgpa, String skill) {
-        companyList.add(new Company(name, minCgpa, skill));
+    public void registerCompany(String name, double cgpa, List<String> skills) {
+        companyList.add(new Company(name, cgpa, skills));
         System.out.println("Company registered.");
-    }
-
-    public void viewAllCompanies() {
-        if (companyList.isEmpty()) {
-            System.out.println("No companies.");
-            return;
-        }
-
-        for (Company c : companyList) {
-            System.out.println(c);
-        }
     }
 
     public Company getCompanyByName(String name) {
         for (Company c : companyList) {
-            if (c.getName().equalsIgnoreCase(name)) {
-                return c;
-            }
+            if (c.getName().equalsIgnoreCase(name)) return c;
         }
         return null;
     }
 
-    public ArrayList<Company> getAllCompanies() {
+    public List<Company> getAllCompanies() {
         return companyList;
+    }
+
+    public void showEligibleStudents(Company company, List<Student> students) {
+        boolean found = false;
+
+        for (Student s : students) {
+            if (!s.isPlaced() &&
+                s.getOfferCount() < 3 &&
+                s.getCgpa() >= company.getMinCgpa() &&
+                s.hasAllSkills(company.getRequiredSkills())) {
+
+                System.out.println(s);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No eligible students found.");
+        }
     }
 }
