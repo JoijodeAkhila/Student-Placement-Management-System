@@ -13,7 +13,6 @@ public class Student {
         this.isPlaced = false;
     }
 
-    // Getters
     public String getId() {
         return id;
     }
@@ -30,7 +29,6 @@ public class Student {
         return isPlaced;
     }
 
-    // Setters
     public void setPlaced(boolean placed) {
         isPlaced = placed;
     }
@@ -38,8 +36,8 @@ public class Student {
     @Override
     public String toString() {
         return "ID: " + id +
-            ", Name: " + name +
-            ", CGPA: " + cgpa +
-            ", Placed: " + (isPlaced ? "Yes" : "No");
+                ", Name: " + name +
+                ", CGPA: " + cgpa +
+                ", Placed: " + (isPlaced ? "Yes" : "No");
     }
 }
