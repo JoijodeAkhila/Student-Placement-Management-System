@@ -1,22 +1,25 @@
 package service;
 
-import model.Application;
-import model.Company;
-import model.Student;
-
+import model.*;
 import java.util.ArrayList;
 
 public class PlacementService {
     private ArrayList<Application> applicationList = new ArrayList<>();
 
     public void apply(Student student, Company company) {
+
         if (student.isPlaced()) {
             System.out.println("Already placed.");
             return;
         }
 
         if (student.getCgpa() < company.getMinCgpa()) {
-            System.out.println("Not eligible.");
+            System.out.println("Not eligible (CGPA).");
+            return;
+        }
+
+        if (!student.getSkill().equalsIgnoreCase(company.getRequiredSkill())) {
+            System.out.println("Not eligible (Skill mismatch).");
             return;
         }
 
@@ -34,42 +37,26 @@ public class PlacementService {
     }
 
     public void viewApplications() {
-        if (applicationList.isEmpty()) {
-            System.out.println("No applications.");
-            return;
-        }
-
         for (Application a : applicationList) {
             System.out.println(a);
         }
     }
 
     public void selectStudent(String studentId, String companyName) {
-        boolean found = false;
-
         for (Application a : applicationList) {
             if (a.getStudentId().equalsIgnoreCase(studentId) &&
                 a.getCompanyName().equalsIgnoreCase(companyName)) {
 
                 a.setStatus("Selected");
-                found = true;
+                System.out.println("Student selected.");
+                return;
             }
         }
-
-        if (found) {
-            System.out.println("Student selected.");
-        } else {
-            System.out.println("Application not found.");
-        }
+        System.out.println("Application not found.");
     }
 
     public void placeStudent(Student student) {
-        if (student.isPlaced()) {
-            System.out.println("Already placed.");
-            return;
-        }
-
         student.setPlaced(true);
-        System.out.println("Student placed successfully.");
+        System.out.println("Student placed.");
     }
 }
